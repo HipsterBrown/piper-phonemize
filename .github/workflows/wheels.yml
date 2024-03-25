@@ -18,6 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Build cpp sources
+        run: make clean && make
+        if: ${{ matrix.os != 'ubuntu-latest' }}
+
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.17.0
         with:

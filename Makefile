@@ -4,7 +4,7 @@ all:
 	cmake -Bbuild -DCMAKE_INSTALL_PREFIX=install
 	cmake --build build --config Release
 	@if [ "$(OS)" != "Windows_NT" ]; then \
-        cd build && ctest --config Release; \
+        cd build && ctest --config Release --rerun-failed --output-on-failure; \
     fi
 	cmake --install build
 

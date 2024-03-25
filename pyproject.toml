@@ -5,7 +5,10 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
-[tool.cibuildwheel]
+[tool.cibuildwheel.macos]
+before-all = "uname -a"
+
+[tool.cibuildwheel.linux]
 before-all = "uname -a && make clean && make"
 manylinux-aarch64-image = "quay.io/pypa/manylinux_2_28_aarch64:latest"
 manylinux-x86_64-image = "quay.io/pypa/manylinux_2_28_x86_64:latest"
