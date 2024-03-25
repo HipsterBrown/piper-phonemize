@@ -20,3 +20,6 @@ htmlcov
 /download/
 /cmake/
 /install/
+.direnv/
+wheelhouse
+.envrc
