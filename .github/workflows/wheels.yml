@@ -18,12 +18,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up QEMU
+        if: runner.os == 'Linux'
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
       - name: Build cpp sources
         run: make clean && make
         if: ${{ matrix.os != 'ubuntu-latest' }}
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.17.0
+        env:
+          CIBW_ARCHS_LINUX: x86_64 aarch64
         with:
           config-file: ./pyproject.toml
 
