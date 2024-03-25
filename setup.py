@@ -15,6 +15,7 @@ _ONNXRUNTIME_DIR = _LIB_DIR / "onnxruntime"
 
 __version__ = "1.2.0"
 
+
 class CustomInstallCommand(install):
     """Customized setuptools install command to copy espeak-ng-data."""
 
@@ -28,13 +29,17 @@ class CustomInstallCommand(install):
             return
 
         # Define the source directories for espeak-ng-data and libraries
-        espeak_ng_data_dir = _ESPEAK_DIR /  "share" / "espeak-ng-data"
+        espeak_ng_data_dir = _ESPEAK_DIR / "share" / "espeak-ng-data"
         espeak_ng_dll = _ESPEAK_DIR / "bin" / "espeak-ng.dll"
         onnxruntime_dll = _ESPEAK_DIR / "lib" / "onnxruntime.dll"
 
         # Define the target directories within the Python environment
         target_data_dir = (
-            Path(sys.prefix) / "Lib" / "site-packages" / "piper_phonemize" / "espeak-ng-data"
+            Path(sys.prefix)
+            / "Lib"
+            / "site-packages"
+            / "piper_phonemize"
+            / "espeak-ng-data"
         )
         target_lib_dir = Path(sys.prefix) / "Library" / "bin"
 
@@ -65,12 +70,12 @@ ext_modules = [
 ]
 
 setup(
-    name="piper_phonemize",
+    name="piper_phonemize_cross",
     version=__version__,
     author="Michael Hansen",
     author_email="mike@rhasspy.org",
     url="https://github.com/rhasspy/piper-phonemize",
-    description="Phonemization libary used by Piper text to speech system",
+    description="Phonemization library used by Piper text to speech system - includes wheels for MacOS & Linux",
     long_description="",
     packages=["piper_phonemize"],
     package_data={
@@ -81,7 +86,10 @@ setup(
     },
     include_package_data=True,
     ext_modules=ext_modules,
-    cmdclass={"build_ext": build_ext, "install": CustomInstallCommand, },
+    cmdclass={
+        "build_ext": build_ext,
+        "install": CustomInstallCommand,
+    },
     zip_safe=False,
     python_requires=">=3.7",
 )

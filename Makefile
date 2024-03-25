@@ -10,3 +10,7 @@ all:
 
 clean:
 	rm -rf build install
+
+build_python: all
+	pip install -q build delocate
+	CPPFLAGS="-I${PWD}/install/include/piper-phonemize -I${PWD}/install/include -L${PWD}/install/lib" python -m build -w
