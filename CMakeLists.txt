@@ -15,11 +15,13 @@ if(MSVC)
     # Force compiler to use UTF-8 for IPA constants
     add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
     add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
-
 elseif(NOT APPLE)
     # Linux flags
     string(APPEND CMAKE_CXX_FLAGS " -Wall -Wextra -Wl,-rpath,'$ORIGIN'")
     string(APPEND CMAKE_C_FLAGS " -Wall -Wextra")
+else()
+    string(APPEND CMAKE_CXX_FLAGS " -mmacosx-version-min=10.15")
+    string(APPEND CMAKE_C_FLAGS " -mmacosx-version-min=10.15")
 endif()
 
 add_library(
