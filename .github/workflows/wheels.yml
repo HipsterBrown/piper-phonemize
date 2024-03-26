@@ -21,7 +21,7 @@ jobs:
         id: cache
         with:
           path: install/
-          key: ${{matrix.os}}-${{hashFiles('install/')}}
+          key: ${{matrix.os}}-${{hashFiles('src/', 'CMakeLists.txt', 'Makefile')}}
 
       - name: build
         if: steps.cache.outputs.cache-hit != 'true'
@@ -82,7 +82,7 @@ jobs:
         id: cache
         with:
           path: dist/
-          key: ${{runner.os}}-${{hashFiles('dist/')}}
+          key: ${{matrix.os}}-${{hashFiles('src/', 'CMakeLists.txt', 'Dockerfile')}}
 
       - name: Set up QEMU
         if: steps.cache.outputs.cache-hit != 'true'
@@ -144,10 +144,22 @@ jobs:
 
       - name: Fetch prebuilt sources (x86_64)
         uses: actions/download-artifact@v4
-        if: matrix.arch == 'x86_64' && matrix.os == 'ubuntu-latest'
+        if: matrix.arch == 'x86_64'
         with:
           name: piper-phonemize_linux_x86_64.tar.gz
           path: install
+
+      - name: Untar prebuilt sources
+        if: matrix.arch == 'x86_64'
+        run: |
+          cd install && \
+          tar -xzf piper-phonemize_amd64.tar.gz
+
+      - name: Untar prebuilt sources
+        if: matrix.arch == 'aarch64'
+        run: |
+          cd install && \
+          tar -xzf piper-phonemize_arm64.tar.gz
 
       - name: Preview install directory
         run: ls -la install/
