@@ -104,12 +104,6 @@ jobs:
           name: piper-phonemize_macos_${{runner.arch}}
           path: install
 
-      - name: Untar build artifact
-        if: runner.os == 'Linux'
-        run: |
-          cd install && \
-          tar -xzf piper-phonemize_linux_*.tar.gz
-
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.17.0
         env:
