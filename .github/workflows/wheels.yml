@@ -153,13 +153,15 @@ jobs:
         if: matrix.arch == 'x86_64'
         run: |
           cd install && \
-          tar -xzf piper-phonemize_amd64.tar.gz
+          tar -xzf piper-phonemize_amd64.tar.gz && \
+          cp -R piper_phonemize/* .
 
       - name: Untar prebuilt sources
         if: matrix.arch == 'aarch64'
         run: |
           cd install && \
-          tar -xzf piper-phonemize_arm64.tar.gz
+          tar -xzf piper-phonemize_arm64.tar.gz && \
+          cp -R piper_phonemize/* .
 
       - name: Preview install directory
         run: ls -la install/
