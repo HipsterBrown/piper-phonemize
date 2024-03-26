@@ -1,13 +1,9 @@
-FROM ubuntu:noble-20240225 as build
+FROM eoshep/manylinux_2_28 as build
 ARG TARGETARCH
 ARG TARGETVARIANT
 
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update && \
-  apt-get install --yes --no-install-recommends \
-  build-essential cmake ca-certificates curl pkg-config git
 
 WORKDIR /build
 
