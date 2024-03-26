@@ -53,8 +53,9 @@ jobs:
           name: piper-phonemize_macos_${{runner.arch}}
           path: install
 
-      - name: Preview install directory
-        run: ls -la install/
+      - name: Copy espeak-ng-data into Python source dir
+        run: |
+          cp -rp ./install/share/espeak-ng-data ./piper_phonemize/espeak-ng-data
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.17.0
@@ -82,7 +83,7 @@ jobs:
         id: cache
         with:
           path: dist/
-          key: ${{matrix.os}}-${{hashFiles('src/', 'CMakeLists.txt', 'Dockerfile')}}
+          key: ${{runner.os}}-${{hashFiles('src/', 'CMakeLists.txt', 'Dockerfile')}}
 
       - name: Set up QEMU
         if: steps.cache.outputs.cache-hit != 'true'
@@ -163,8 +164,9 @@ jobs:
           tar -xzf piper-phonemize_arm64.tar.gz && \
           cp -R piper_phonemize/* .
 
-      - name: Preview install directory
-        run: ls -la install/
+      - name: Copy espeak-ng-data into Python source dir
+        run: |
+          cp -rp ./install/share/espeak-ng-data ./piper_phonemize/espeak-ng-data
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.17.0
