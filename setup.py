@@ -13,7 +13,7 @@ _ESPEAK_DIR = _DIR / "install"
 _LIB_DIR = _DIR / "lib" / f"Linux-{platform.machine()}"
 _ONNXRUNTIME_DIR = _LIB_DIR / "onnxruntime"
 
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 
 
 class CustomInstallCommand(install):
